@@ -49,4 +49,7 @@ class User extends Authenticatable
     public function teacherClassrooms(){
         return $this->hasMany(Classroom::class, 'teacher_id');
     }
+    public function asStudentClassroom(){
+        return $this->hasMany(ClassroomStudent::class, 'student_id');
+    }
 }

@@ -78,4 +78,17 @@ Alpine.data("lineChart", () => ({
     },
 }));
 
+Alpine.data('calendarInit', () => ({
+    calender : null,
+    init(){
+
+        const calendarElement = this.$refs.calendar;
+
+        var calendar = new FullCalendar.Calendar(calendarElement, {
+            initialView: 'dayGridMonth'
+          });
+          calendar.render();
+    }
+}));
+
 Alpine.start();

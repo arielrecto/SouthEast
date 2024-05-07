@@ -24,4 +24,7 @@
     .input-generic {
         @apply input input-accent input-sm w-full
     }
+    .card-generic {
+        @apply shadow-secondary shadow-md rounded-lg h-full w-full p-5
+    }
 }
