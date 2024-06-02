@@ -52,4 +52,10 @@ class User extends Authenticatable
     public function asStudentClassroom(){
         return $this->hasMany(ClassroomStudent::class, 'student_id');
     }
+    public function attendances (){
+        return $this->hasMany(AttendanceStudent::class);
+    }
+    public function tasks(){
+        return $this->hasMany(StudentTask::class);
+    }
 }

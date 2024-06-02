@@ -43,4 +43,8 @@
             </p>
         </div>
     </div>
+
+    <div  class="panel" x-data="lineChart">
+        <div x-ref="chart"></div>
+    </div>
 </x-dashboard.teacher.base>

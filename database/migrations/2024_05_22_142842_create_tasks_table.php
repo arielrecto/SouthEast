@@ -13,10 +13,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('classroom_students', function (Blueprint $table) {
+        Schema::create('tasks', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->date('start_date');
+            $table->date('end_date');
+            $table->longText('description');
+            $table->string('score');
+            $table->string('max_score');
             $table->foreignIdFor(Classroom::class)->constrained()->onDelete('cascade');
-            $table->foreignIdFor(User::class, 'student_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -26,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('classroom_students');
+        Schema::dropIfExists('tasks');
     }
 };

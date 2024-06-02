@@ -7,20 +7,32 @@
               <thead>
                 <tr>
                   <th></th>
-                  <th>Name</th>
-                  <th>Job</th>
-                  <th>Favorite Color</th>
+                  <th>name</th>
+                  <th>email</th>
+                  {{-- <th>Favorite Color</th> --}}
                 </tr>
               </thead>
               <tbody>
                 <!-- row 1 -->
+                @forelse ($students as $student)
+
                 <tr>
-                  <th>1</th>
-                  <td>Cy Ganderton</td>
-                  <td>Quality Control Specialist</td>
-                  <td>Blue</td>
-                </tr>
-                <!-- row 2 -->
+                    <th></th>
+                    <td>{{$student->name}}</td>
+                    <td>{{$student->email}}</td>
+                    {{-- <td>Blue</td> --}}
+                  </tr>
+                @empty
+                <tr>
+                    <th>1</th>
+                    <td>Cy Ganderton</td>
+                    <td>Quality Control Specialist</td>
+                    <td>Blue</td>
+                  </tr>
+
+                @endforelse
+
+                {{-- <!-- row 2 -->
                 <tr>
                   <th>2</th>
                   <td>Hart Hagerty</td>
@@ -33,7 +45,7 @@
                   <td>Brice Swyre</td>
                   <td>Tax Accountant</td>
                   <td>Red</td>
-                </tr>
+                </tr> --}}
               </tbody>
             </table>
           </div>

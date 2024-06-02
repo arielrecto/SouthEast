@@ -2,30 +2,29 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\User;
-use App\Enums\UserRoles;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Attendance;
+use App\Models\Classroom;
+use Illuminate\Http\Request;
 
-class StudentController extends Controller
+class AttendanceController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-
-        $students = User::role(UserRoles::STUDENT->value)->latest()->paginate(10);
-
-        return view('users.admin.users.student.index', compact(['students']));
+        //
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Classroom $classroom)
     {
-        //
+        $attendance_code = 'ATT' . uniqid();
+
+        return view('users.teacher.classroom.attendance.create', compact(['classroom', 'attendance_code']));
     }
 
     /**
@@ -33,7 +32,23 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'start_time' => 'required',
+            'end_time' => 'required'
+        ]);
+
+
+        Attendance::create([
+            'attendance_code' => $request->attendance_code,
+            'classroom_id' => $request->classroom_id,
+            'date' => now(),
+            'start_time' => $request->start_time,
+            'end_time' => $request->end_time
+        ]);
+
+
+        return to_route('teacher.classrooms.show', ['classroom' => $request->classroom_id])->with(['message' => 'Attendance QR Generated']);
+
     }
 
     /**

@@ -34,4 +34,16 @@ class Classroom extends Model
     public function classroomStudents(){
         return $this->hasMany(ClassroomStudent::class);
     }
+    public function attendances() {
+        return $this->hasMany(Attendance::class);
+    }
+    public function announcements(){
+        return $this->hasMany(Announcement::class);
+    }
+    public function attendanceStudents(){
+        return $this->hasMany(AttendanceStudent::class, 'classroom_id');
+    }
+    public function tasks(){
+        return $this->hasMany(Task::class);
+    }
 }

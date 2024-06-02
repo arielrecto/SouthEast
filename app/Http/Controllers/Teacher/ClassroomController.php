@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Teacher;
 
 use App\Http\Controllers\Controller;
 use App\Models\Classroom;
+use App\Models\ClassroomStudent;
 use App\Models\Strand;
 use App\Models\Subject;
 use Illuminate\Http\Request;
@@ -52,7 +53,12 @@ class ClassroomController extends Controller
 
         $classroom_code = 'CLSSRM'.uniqid();
 
+
+        $imageName = 'IMG-' . uniqid() . '.' . $request->image->extension();
+        $dir = $request->image->storeAs('/classroom', $imageName, 'public');
+
        Classroom::create([
+        'image' => asset('/storage/' . $dir),
         'name' => $request->name,
         'class_code' => $classroom_code,
         'description' => $request->description,
@@ -97,6 +103,33 @@ class ClassroomController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $classroom = Classroom::find($id);
+
+
+        $classroom->delete();
+
+
+        return to_route('teacher.classrooms.index')->with(['message' => 'classroom deleted']);
+    }
+
+    public function students(string $id){
+
+
+        $classroomStudents = Classroom::whereId($id)->first()->classroomStudents;
+
+
+
+        return view('users.teacher.classroom.student.index', compact('classroomStudents', 'id'));
+
+    }
+
+    public function removeStudent(string $id){
+        $classroomStudent = ClassroomStudent::find($id);
+
+        $classroomStudent->delete();
+
+
+        return back()->with(['message' => 'Student Successfully Remove in Classroom']);
+
     }
 }

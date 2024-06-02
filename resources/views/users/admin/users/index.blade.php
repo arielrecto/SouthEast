@@ -9,7 +9,7 @@
                         Student
                     </h1>
                     <p class="text-6xl font-bold text-accent text-center ">
-                        12312
+                        {{count($students)}}
                     </p>
                 </div>
             </a>
@@ -20,7 +20,7 @@
                         teacher
                     </h1>
                     <p class="text-6xl font-bold text-accent text-center ">
-                        12312
+                        {{count($teachers)}}
                     </p>
                 </div>
             </a>

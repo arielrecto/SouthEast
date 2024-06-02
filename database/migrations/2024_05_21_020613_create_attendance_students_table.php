@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Attendance;
 use App\Models\Classroom;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
@@ -13,10 +14,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('classroom_students', function (Blueprint $table) {
+        Schema::create('attendance_students', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(Attendance::class)->constrained()->onDelete('cascade');
+            $table->foreignIdFor(User::class)->constrained()->onDelete('cascade');
             $table->foreignIdFor(Classroom::class)->constrained()->onDelete('cascade');
-            $table->foreignIdFor(User::class, 'student_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('classroom_students');
+        Schema::dropIfExists('attendance_students');
     }
 };

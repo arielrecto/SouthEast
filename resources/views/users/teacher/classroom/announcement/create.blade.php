@@ -1,15 +1,15 @@
 <x-dashboard.teacher.base>
     <x-notification-message />
-    <x-dashboard.page-title :title="_('Classrooms Create')" :back_url="route('teacher.classrooms.index')"/>
+    <x-dashboard.page-title :title="_('Classrooms Create')"  />
 
     <div class="panel min-h-96">
 
-        <form action="{{ route('teacher.classrooms.store') }}" method="post" class="flex flex-col gap-5"
+        <form action="{{ route('teacher.announcements.store') }}" method="post" class="flex flex-col gap-5"
             enctype="multipart/form-data">
 
             @csrf
-            <h1 class="form-title">Classroom Form</h1>
-            <div class="w-full flex justify-center" x-data="imageHandler">
+            <h1 class="form-title">Announcement</h1>
+            {{-- <div class="w-full flex justify-center" x-data="imageHandler">
 
                 <template x-if="imageSrc !== null">
 
@@ -39,12 +39,12 @@
                     </label>
                 </div>
 
-            </div>
+            </div> --}}
             <div class="flex flex-col gap-2">
-                <label for="" class="input-generic-label">name</label>
-                <input type="text" name="name" class="input-generic">
-                @if ($errors->has('name'))
-                    <p class="text-xs text-error">{{ $errors->first('name') }}</p>
+                <label for="" class="input-generic-label">title</label>
+                <input type="text" name="title" class="input-generic">
+                @if ($errors->has('title'))
+                    <p class="text-xs text-error">{{ $errors->first('title') }}</p>
                 @endif
             </div>
             <div class="flex flex-col gap-2">
@@ -54,32 +54,9 @@
                     <p class="text-xs text-error">{{ $errors->first('description') }}</p>
                 @endif
             </div>
-            <div class="flex flex-col gap-2">
-                <label for="" class="input-generic-label">Subject</label>
-                <select name="subject" class="select select-accent select-sm text-sm w-full">
-                    <option disabled selected>Select Subject</option>
 
-                    @foreach ($subjects as $subject)
-                        <option value="{{ $subject->id }}">{{ $subject->name }}</option>
-                    @endforeach
-                </select>
-                @if ($errors->has('subject'))
-                    <p class="text-xs text-error">{{ $errors->first('subject') }}</p>
-                @endif
-            </div>
-            <div class="flex flex-col gap-2">
-                <label for="" class="input-generic-label">Strand</label>
-                <select name="strand" class="select select-accent select-sm text-sm w-full">
-                    <option disabled selected>Select Subject</option>
+            <input type="hidden" name="classroom_id" value="{{$classroom_id}}">
 
-                    @foreach ($strands as $strand)
-                        <option value="{{ $strand->id }}">{{ $strand->name }}</option>
-                    @endforeach
-                </select>
-                @if ($errors->has('strand'))
-                    <p class="text-xs text-error">{{ $errors->first('strand') }}</p>
-                @endif
-            </div>
 
 
             <button class="btn btn-sm btn-accent">Submit</button>
