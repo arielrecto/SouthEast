@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Student\AnnouncementController;
 use App\Http\Controllers\Student\AttendanceController;
 use App\Http\Controllers\Student\Auth\LoginController;
 use App\Http\Controllers\Student\Auth\RegisterController;
@@ -54,5 +55,6 @@ Route::middleware(['auth:sanctum', 'role:student'])->group(function (){
         Route::get('/{classroom}/task', [TaskController::class, 'index']);
         Route::get('/task/{studentTask}', [TaskController::class,'show']);
         Route::post('/task/{studentTask}', [TaskController::class,'addAttachment']);
+        Route::get('/announcement/{announcement}', [AnnouncementController::class, 'show']);
     });
 });

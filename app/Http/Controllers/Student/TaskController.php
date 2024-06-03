@@ -22,7 +22,9 @@ class TaskController extends Controller
                 });
         })->with(['attachments', 'assignStudents' => function ($q) use ($user) {
             $q->where('user_id', $user->id);
-        }])->latest()->get();
+        }])->withCount([
+            'attachments'
+        ])->latest()->get();
     }
     public function show(string $id)
     {

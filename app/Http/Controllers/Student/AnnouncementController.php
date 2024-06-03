@@ -9,6 +9,6 @@ use Illuminate\Http\Request;
 class AnnouncementController extends Controller
 {
     public function show(string $id){
-        $announcement = Announcement::find($id);
+        return Announcement::find($id);
     }
 }

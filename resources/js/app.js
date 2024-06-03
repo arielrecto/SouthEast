@@ -1,5 +1,5 @@
-import { data } from "dom7";
-import "./bootstrap";
+// import { data } from "dom7";
+//  import "./bootstrap";
 
 import Alpine from "alpinejs";
 
