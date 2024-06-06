@@ -32,7 +32,7 @@
                                     <i class="fi fi-rr-eye"></i>
                                 </a>
 
-                                <form action="" method="post">
+                                <form action="{{route('teacher.classrooms.student.remove', ['classroom_student' => $classroomStudent->id])}}" method="post">
                                     @csrf
                                     @method('delete')
                                     <button class="btn btn-xs btn-error ">
