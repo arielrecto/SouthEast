@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('attendances', function (Blueprint $table) {
             $table->id();
             $table->string('attendance_code');
-            $table->foreignIdFor(Classroom::class);
+            $table->foreignIdFor(Classroom::class)->constrained()->onDelete('cascade');
             $table->date('date');
             $table->string('start_time');
             $table->string('end_time');

@@ -20,9 +20,9 @@ return new class extends Migration
             $table->string('name');
             $table->string('class_code');
             $table->longText('description');
-            $table->foreignIdFor(Subject::class);
-            $table->foreignIdFor(Strand::class);
-            $table->foreignIdFor(User::class, 'teacher_id');
+            $table->foreignIdFor(Subject::class)->constrained()->onDelete('cascade');
+            $table->foreignIdFor(Strand::class)->constrained()->onDelete('cascade');
+            $table->foreignIdFor(User::class, 'teacher_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

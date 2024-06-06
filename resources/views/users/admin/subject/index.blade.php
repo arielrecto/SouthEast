@@ -14,7 +14,6 @@
               </thead>
               <tbody>
 
-
                 @forelse ($subjects as $subject)
                  <!-- row 1 -->
                  <tr>
@@ -26,7 +25,11 @@
                             <i class="fi fi-rr-eye"></i>
                         </a>
 
-                        <form action="" method="post">
+                        <a href="{{route('admin.subjects.edit', ['subject' => $subject->id])}}" class="btn btn-xs btn-primary">
+                            <i class="fi fi-rr-edit"></i>
+                        </a>
+
+                        <form action="{{route('admin.subjects.destroy', ['subject' => $subject->id])}}" method="post">
                             @csrf
                             @method('delete')
                             <button class="btn btn-xs btn-error ">

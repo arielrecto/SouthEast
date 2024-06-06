@@ -17,7 +17,7 @@ class TeacherController extends Controller
     public function index()
     {
 
-        $teachers = User::whereHas('roles', function($q){
+        $teachers = User::whereHas('roles', function ($q) {
             $q->where('name', UserRoles::TEACHER->value);
         })->latest()->paginate();
 
@@ -46,7 +46,7 @@ class TeacherController extends Controller
 
         $teacherRole = Role::where('name', UserRoles::TEACHER->value)->first();
 
-       $user =  User::create([
+        $user =  User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password)
@@ -77,7 +77,10 @@ class TeacherController extends Controller
      */
     public function edit(string $id)
     {
-        //
+
+        $teacher = User::find($id);
+
+        return view('users.admin.users.teacher.edit', compact(['teacher']));
     }
 
     /**
@@ -85,7 +88,17 @@ class TeacherController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $teacher = User::find($id);
+
+
+        $teacher->update([
+            'name' => $request->name ?? $teacher->name,
+            'email' => $request->email ?? $teacher->email,
+            'password' => Hash::make($request->password ?? $teacher->password)
+        ]);
+
+
+        return back()->with(['message' => 'Teacher Account Updated']);
     }
 
     /**
@@ -93,6 +106,12 @@ class TeacherController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $teacher = User::find($id);
+
+
+        $teacher->delete();
+
+
+        return back()->with(['message' => 'Teacher Account Deleted Success']);
     }
 }

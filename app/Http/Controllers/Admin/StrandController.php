@@ -57,7 +57,10 @@ class StrandController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $strand = Strand::find($id);
+
+
+        return view('users.admin.strand.show', compact(['strand']));
     }
 
     /**
@@ -65,7 +68,10 @@ class StrandController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $strand = Strand::find($id);
+
+
+        return view('users.admin.strand.edit', compact(['strand']));
     }
 
     /**
@@ -73,7 +79,17 @@ class StrandController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $strand = Strand::find($id);
+
+
+        $strand->update([
+            'name' => $request->name ?? $strand->name,
+            'acronym' => $request->acronym ?? $strand->acronym,
+            'descriptions' => $request->description ?? $strand->descriptions
+        ]);
+
+
+        return back()->with(['message' => 'Strand Data Updated']);
     }
 
     /**
@@ -81,6 +97,11 @@ class StrandController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $strand = Strand::find($id);
+
+        $strand->delete();
+
+        return back()->with(['message' => 'Strand Deleted Success']);
+
     }
 }

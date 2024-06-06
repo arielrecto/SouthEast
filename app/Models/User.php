@@ -43,19 +43,41 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function profile(){
+    public function profile()
+    {
         return $this->hasOne(Profile::class);
     }
-    public function teacherClassrooms(){
+    public function teacherClassrooms()
+    {
         return $this->hasMany(Classroom::class, 'teacher_id');
     }
-    public function asStudentClassroom(){
+    public function asStudentClassrooms()
+    {
         return $this->hasMany(ClassroomStudent::class, 'student_id');
     }
-    public function attendances (){
+    public function attendances()
+    {
         return $this->hasMany(AttendanceStudent::class);
     }
-    public function tasks(){
+    public function tasks()
+    {
         return $this->hasMany(StudentTask::class);
+    }
+    public function overallGrade()
+    {
+
+        $studentTasks = $this->tasks;
+
+
+        $totalScore = $studentTasks->sum('score');
+        $totalMaxScore = $studentTasks->sum(fn ($task) => $task->task->max_score);
+
+
+        if ($totalMaxScore == 0) {
+            return 0;
+        }
+
+
+        return round(($totalScore / $totalMaxScore) * 100, 2);
     }
 }

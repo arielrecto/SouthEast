@@ -26,7 +26,7 @@
             </h1>
         </div>
 
-        <div class="grid grid-cols-3 grid-flow-row gap-5 h-32">
+        <div class="grid grid-cols-4 grid-flow-row gap-5 h-32">
             <a href="{{route('teacher.classrooms.students', ['classroom' => $classroom->id])}}" class="card-generic bg-white flex flex-col gap-2 justify-between shadow-none border-accent border">
                 <h1 class="font-bold flex items-center gap-2">
                     <span class="mt-1">
@@ -67,6 +67,20 @@
                 <p class="flex text-3xl font-bold text-accent text-center">
                     {{count($classroom->tasks)}}
                 </p>
+            </a>
+            <a href="{{route('teacher.grades.index', ['classroom_id' => $classroom->id])}}" class="card-generic bg-white flex flex-col gap-2 justify-between shadow-none border-accent border">
+
+                <h1 class="font-bold flex items-center gap-2">
+                    <span class="mt-1">
+                        <i class="fi fi-rr-test"></i>
+                    </span>
+                    <span>
+                       Grades
+                    </span>
+                </h1>
+                {{-- <p class="flex text-3xl font-bold text-accent text-center">
+                    {{count($classroom->tasks)}}
+                </p> --}}
             </a>
         </div>
         @php
@@ -161,7 +175,7 @@
                                     <i class="fi fi-rr-eye"></i>
                                 </a>
 
-                                <form action="" method="post">
+                                <form action="{{route('teacher.classrooms.student.remove', ['classroom_student' => $classroomStudent->id])}}" method="post">
                                     @csrf
                                     @method('delete')
                                     <button class="btn btn-xs btn-error ">

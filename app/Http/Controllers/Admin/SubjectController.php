@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Subject;
 use Illuminate\Http\Request;
+use Mockery\Matcher\Subset;
 
 class SubjectController extends Controller
 {
@@ -54,7 +55,9 @@ class SubjectController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $subject = Subject::find($id);
+
+        return view('users.admin.subject.show', compact(['subject']));
     }
 
     /**
@@ -62,7 +65,9 @@ class SubjectController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $subject = Subject::find($id);
+
+        return view('users.admin.subject.edit', compact('subject'));
     }
 
     /**
@@ -70,7 +75,17 @@ class SubjectController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $subject = Subject::find($id);
+
+
+        $subject->update([
+            'name' => $request->name ?? $subject->name,
+            'subject_code' => $request->subject_code ?? $subject->subject_code,
+            'description' => $request->description ?? $subject->description
+        ]);
+
+
+        return back()->with(['message' => 'Subject Data Updated']);
     }
 
     /**
@@ -78,6 +93,11 @@ class SubjectController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $subject = Subject::find($id);
+
+        $subject->delete();
+
+
+        return back()->with(['message' => 'Subject Deleted']);
     }
 }

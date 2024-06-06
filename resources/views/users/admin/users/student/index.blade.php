@@ -1,38 +1,54 @@
 <x-dashboard.admin.base>
-    <x-dashboard.page-title :back_url="route('admin.users.index')" :title="_('Students')" :create_url="route('admin.users.students.create')"/>
+    <x-dashboard.page-title :back_url="route('admin.users.index')" :title="_('studentss')" :create_url="route('admin.users.students.create')" />
     <div class="panel flex flex-col gap-2">
         <div class="overflow-x-auto">
             <table class="table">
-              <!-- head -->
-              <thead>
-                <tr>
-                  <th></th>
-                  <th>name</th>
-                  <th>email</th>
-                  {{-- <th>Favorite Color</th> --}}
-                </tr>
-              </thead>
-              <tbody>
-                <!-- row 1 -->
-                @forelse ($students as $student)
+                <!-- head -->
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>name</th>
+                        <th>email</th>
+                        <th>Classrooms</th>
+                        <th>Actions</th>
+                        {{-- <th>Favorite Color</th> --}}
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- row 1 -->
+                    @forelse ($students as $student)
+                        <tr>
+                            <th></th>
+                            <td>{{ $student->name }}</td>
+                            <td>{{ $student->email }}</td>
+                            <td>{{ $student->asStudentClassrooms()->count() }}</td>
+                            <td class="flex items-center gap-5">
+                                <a href="{{route('admin.users.students.show', ['student' => $student->id])}}" class="btn btn-xs btn-accent">
+                                    <i class="fi fi-rr-eye"></i>
+                                </a>
 
-                <tr>
-                    <th></th>
-                    <td>{{$student->name}}</td>
-                    <td>{{$student->email}}</td>
-                    {{-- <td>Blue</td> --}}
-                  </tr>
-                @empty
-                <tr>
-                    <th>1</th>
-                    <td>Cy Ganderton</td>
-                    <td>Quality Control Specialist</td>
-                    <td>Blue</td>
-                  </tr>
+                                <a href="{{route('admin.users.students.edit', ['student' => $student->id])}}" class="btn btn-xs btn-primary">
+                                    <i class="fi fi-rr-edit"></i>
+                                </a>
 
-                @endforelse
+                                <form action="{{route('admin.users.students.destroy', ['student' => $student->id])}}" method="post">
+                                    @csrf
+                                    @method('delete')
+                                    <button class="btn btn-xs btn-error ">
+                                        <i class="fi fi-rr-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                            {{-- <td>Blue</td> --}}
+                        </tr>
+                    @empty
+                        <tr>
+                            <th>No studentss</th>
 
-                {{-- <!-- row 2 -->
+                        </tr>
+                    @endforelse
+
+                    {{-- <!-- row 2 -->
                 <tr>
                   <th>2</th>
                   <td>Hart Hagerty</td>
@@ -46,8 +62,8 @@
                   <td>Tax Accountant</td>
                   <td>Red</td>
                 </tr> --}}
-              </tbody>
+                </tbody>
             </table>
-          </div>
+        </div>
     </div>
 </x-dashboard.admin.base>

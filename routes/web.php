@@ -12,9 +12,12 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Teacher\AnnouncementController;
 use App\Http\Controllers\Teacher\ClassroomController;
 use App\Http\Controllers\Teacher\DashboardController as TeacherDashboardController;
+use App\Http\Controllers\Teacher\GradeController;
 use App\Http\Controllers\Teacher\ProfileController as TeacherProfileController;
 use App\Http\Controllers\Teacher\StudentController as TeacherStudentController;
+use App\Http\Controllers\Teacher\StudentTaskController;
 use App\Http\Controllers\Teacher\TaskController;
+use App\Models\StudentTask;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -64,10 +67,20 @@ Route::middleware([
                 Route::get('/{classroom}/attendances', [AttendanceController::class, 'create'])->name('attendances');
                 Route::post('/attendances', [AttendanceController::class, 'store'])->name('attendances.store');
                 Route::get('/{classroom}/student', [ClassroomController::class, 'students'])->name('students');
+                Route::delete('/student/{classroom_student}', [ClassroomController::class, 'removeStudent'])->name('student.remove');
             });
 
             Route::prefix('student')->as('student.')->group(function(){
                 Route::get('/{student}', [TeacherStudentController::class, 'show'])->name('show');
+            });
+
+            Route::prefix('grades')->as('grades.')->group(function(){
+                Route::get('', [GradeController::class, 'index'])->name('index');
+            });
+
+            Route::prefix('student-task')->as('studentTask.')->group(function(){
+                Route::get('{student_task}', [StudentTaskController::class, 'show'])->name('show');
+                Route::post('{student_task}/add-score', [StudentTaskController::class, 'addScore'])->name('addScore');
             });
 
             Route::resource('classrooms', ClassroomController::class);

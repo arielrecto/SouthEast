@@ -1,6 +1,6 @@
 <x-dashboard.teacher.base>
 
-    <x-dashboard.page-title :title="_('tasks')" />
+    <x-dashboard.page-title :back_url="route('teacher.tasks.index', ['classroom_id' => $task->classroom->id])" :title="_('tasks')" />
     <x-notification-message />
     <div class="panel min-h-96">
 
@@ -49,6 +49,7 @@
                         <th>classroom</th>
                         <th>Score</th>
                         <th>Attachment</th>
+                        <th>Status</th>
                         <th>Action</th>
 
                     </tr>
@@ -62,12 +63,13 @@
                             <th>{{ $a_student->task->name }}</th>
                             <th>{{ $a_student->task->classroom->name }}</th>
                             <th>{{$a_student->score ?? 0}}</th>
-                            <th></th>
+                            <th>{{$a_student->attachments()->count()}}</th>
+                            <th>{{$a_student->status}}</th>
                             {{-- <th>{{ $task->end_date }}</th>
                             <th>{{ $task->max_score }}</th>
                             <th>{{ count($task->assignStudents) }}</th>  --}}
                             <td class="flex items-center gap-2">
-                                <a href="#" class="btn btn-xs btn-accent">
+                                <a href="{{route('teacher.studentTask.show', ['student_task' => $a_student->id])}}" class="btn btn-xs btn-accent">
                                     <i class="fi fi-rr-eye"></i>
                                 </a>
 

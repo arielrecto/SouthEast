@@ -1,14 +1,20 @@
 <x-auth.base>
 
-    <form action="{{route('login')}}" method="post" class="flex flex-col gap-2">
-
-        @csrf
+    <form action="{{ route('login') }}" method="post" class="flex flex-col gap-2">
         <div class="flex justify-center w-full">
             <div class="flex items-center gap-2">
                 <img src="{{ asset('logo-modified.png') }}" alt="" srcset="" class="h-12 w-12 object-cover">
                 <h1 class="text-3xl font-bold text-center text-accent">Login</h1>
             </div>
         </div>
+
+        @if ($errors->any())
+            @foreach ($errors->all() as $error)
+                <p class="text-xs text-error">{{ $error }}</p>
+            @endforeach
+        @endif
+
+        @csrf
 
         <div class="flex flex-col gap-2">
             <label for="" class="text-accent">Email</label>

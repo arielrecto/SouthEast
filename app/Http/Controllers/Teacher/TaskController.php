@@ -84,7 +84,7 @@ class TaskController extends Controller
 
         if (count($attachments) !== 0) {
 
-        collect($attachments)->map(function ($attachment) use($task){
+            collect($attachments)->map(function ($attachment) use ($task) {
                 if ($attachment->type === 'url') {
                     AttachmentTask::create([
                         'file' => $attachment->data,
@@ -151,6 +151,7 @@ class TaskController extends Controller
 
         return back()->with(['message' => 'task Deleted Success']);
     }
+
 
     private function handleFileObject($fileObject, string $path, string $name)
     {

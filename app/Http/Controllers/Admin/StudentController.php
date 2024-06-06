@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Enums\UserRoles;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 
 class StudentController extends Controller
 {
@@ -41,7 +42,10 @@ class StudentController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $student = User::find($id);
+
+
+        return view('users.admin.users.student.show', compact(['student']));
     }
 
     /**
@@ -49,7 +53,9 @@ class StudentController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $student = User::find($id);
+
+        return view('users.admin.users.student.edit', compact(['student']));
     }
 
     /**
@@ -57,7 +63,17 @@ class StudentController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $student = User::find($id);
+
+
+        $student->update([
+            'name' => $request->name ?? $student->name,
+            'email' => $request->email ?? $student->email,
+            'password' => Hash::make($request->password ?? $student->password)
+        ]);
+
+
+        return back()->with(['message' => 'student Data Update']);
     }
 
     /**
@@ -65,6 +81,10 @@ class StudentController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $student = User::find($id);
+
+        $student->delete();
+
+        return back()->with(['message' => 'Student Date Deleted']);
     }
 }

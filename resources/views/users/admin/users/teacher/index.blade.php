@@ -26,8 +26,11 @@
                                 <a href="{{route('admin.users.teacher.show', ['teacher' => $teacher->id])}}" class="btn btn-xs btn-accent">
                                     <i class="fi fi-rr-eye"></i>
                                 </a>
+                                <a href="{{route('admin.users.teacher.edit', ['teacher' => $teacher->id])}}" class="btn btn-xs btn-primary">
+                                    <i class="fi fi-rr-edit"></i>
+                                </a>
 
-                                <form action="" method="post">
+                                <form action="{{route('admin.users.teacher.destroy', ['teacher' => $teacher->id ])}}" method="post">
                                     @csrf
                                     @method('delete')
                                     <button class="btn btn-xs btn-error ">

@@ -54,7 +54,7 @@ Route::middleware(['auth:sanctum', 'role:student'])->group(function (){
         Route::get('/{classroom}', [ClassroomController::class, 'show']);
         Route::get('/{classroom}/task', [TaskController::class, 'index']);
         Route::get('/task/{studentTask}', [TaskController::class,'show']);
-        Route::post('/task/{studentTask}', [TaskController::class,'addAttachment']);
+        Route::post('/task/{studentTask}', [TaskController::class,'submitTask']);
         Route::get('/announcement/{announcement}', [AnnouncementController::class, 'show']);
     });
 });
