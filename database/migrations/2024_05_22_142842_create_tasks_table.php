@@ -20,7 +20,7 @@ return new class extends Migration
             $table->date('end_date');
             $table->longText('description');
             $table->string('score');
-            $table->string('max_score');
+            $table->string('max_score')->default(100);
             $table->foreignIdFor(Classroom::class)->constrained()->onDelete('cascade');
             $table->timestamps();
         });

@@ -1,5 +1,5 @@
 <x-dashboard.admin.base>
-    <x-dashboard.page-title :back_url="route('admin.users.index')" :title="_('studentss')" :create_url="route('admin.users.students.create')" />
+    <x-dashboard.page-title :back_url="route('admin.users.index')" :title="_('students')"  />
     <div class="panel flex flex-col gap-2">
         <div class="overflow-x-auto">
             <table class="table">

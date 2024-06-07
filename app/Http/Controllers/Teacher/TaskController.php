@@ -67,7 +67,7 @@ class TaskController extends Controller
             'name' => $request->name,
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
-            'max_score' => $request->max_score,
+            // 'max_score' => $request->max_score,
             'description' => $request->description,
             'score' => 0,
             'classroom_id' => $request->classroom_id
