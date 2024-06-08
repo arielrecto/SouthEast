@@ -65,11 +65,20 @@ class StudentController extends Controller
     {
         $student = User::find($id);
 
+        if ($request->password) {
+            $request->validate([
+                'password' => 'required|confirmed'
+            ]);
+
+
+            $student->update([
+                'password' => Hash::make($request->password)
+            ]);
+        }
 
         $student->update([
             'name' => $request->name ?? $student->name,
             'email' => $request->email ?? $student->email,
-            'password' => Hash::make($request->password ?? $student->password)
         ]);
 
 

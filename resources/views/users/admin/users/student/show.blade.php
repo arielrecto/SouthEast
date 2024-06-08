@@ -50,8 +50,8 @@
                                     <th></th>
                                     <td>{{ $classroom->name }}</td>
                                     <td>{{ $classroom->class_code }}</td>
-                                    <td>{{ $classroom->subject->name }}</td>
-                                    <td>{{ $classroom->teacher->name }}</td>
+                                    <td>{{ $classroom->subject->name ?? "N\A"}}</td>
+                                    <td>{{ $classroom->teacher->name ?? "N\A"}}</td>
                                     <td class="flex items-center gap-5">
                                         {{-- <a href="{{route('admin.subjects.show', ['subject' => $subject->id])}}" class="btn btn-xs btn-accent">
                                     <i class="fi fi-rr-eye"></i>

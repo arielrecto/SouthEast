@@ -11,8 +11,9 @@ class AttachmentStudent extends Model
 
 
     protected $fillable = [
-        'file',
+        'file_dir',
         'type',
+        'name',
         'extension',
         'student_task_id'
     ];

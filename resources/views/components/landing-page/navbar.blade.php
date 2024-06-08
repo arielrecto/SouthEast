@@ -12,7 +12,7 @@
         <button class="btn btn-accent text-white">Login</button>
 
     </div>
-    <div class="w-full flex items-end justify-center bg-secondary">
+    {{-- <div class="w-full flex items-end justify-center bg-secondary">
         <div class="flex items-center gap-5">
             <a href="/" class="py-2 px-4 hover:bg-accent duration-700 hover:text-primary text-sm tracking-wider">Home</a>
             <a href="/#announcement" class="py-2 px-4 hover:bg-accent  duration-700 hover:text-primary text-sm tracking-wider">Announcement</a>
@@ -20,5 +20,5 @@
             <a href="http://" class="py-2 px-4 hover:bg-accent  duration-700 hover:text-primary text-sm tracking-wider">About</a>
             <a href="http://" class="py-2 px-4 hover:bg-accent duration-700 hover:text-primary text-sm tracking-wider">Contact US</a>
         </div>
-    </div>
+    </div> --}}
 </div>

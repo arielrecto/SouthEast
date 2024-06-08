@@ -45,37 +45,53 @@ class TaskController extends Controller
     public function submitTask(Request $request, string $id)
     {
 
-        $attachments = $request->attachments;
-
         $studentTask = StudentTask::find($id);
 
-        if ($attachments) {
 
-            collect($attachments)->map(function ($attachment) use($studentTask) {
 
-                $base64 = str_replace(' ', '+', $attachment['data']);
-                $fileName = "{$studentTask->task->name}-" . uniqid() . '.' . $attachment['extension'];
-                $fileDecoded = base64_decode($base64);
+        if ($request->hasFile('attachments')) {
+            $attachments = $request->file('attachments');
+
+
+
+            foreach ($attachments as $attachment) {
+
+
+
+                $fileContent = file_get_contents($attachment->getPathname());
+
+
+                $extension = $attachment->getClientOriginalExtension();
+                $fileName = "{$studentTask->task->name}-" . uniqid() . '.' . $extension;
+                $type = $attachment->getMimeType();
+
 
 
                 $storagePath = "public/students/attachment/" . $fileName;
 
-                if (Storage::put($storagePath, $fileDecoded)) {
+
+
+
+                if (!Storage::put($storagePath, $fileContent)) {
                     throw new \Exception('Failed to save the file');
                 }
 
 
-                $attachments = AttachmentStudent::create([
-                    'file' => asset('/storage/students/attachment/' . $fileName),
-                    'type' => $attachment->type,
-                    'extension' =>  $attachment->extension,
-                    'student_task_id' => $studentTask->id
+                AttachmentStudent::create([
+                    'file_dir' => asset('/storage/students/attachment/' . $fileName),
+                    'type' => $type,
+                    'extension' => $extension,
+                    'student_task_id' => $studentTask->id,
                 ]);
-            });
+
+
+
+            }
         }
 
+        // Update the student task status to submitted
         $studentTask->update([
-            'status' => GeneralStatus::SUBMITTED->value
+            'status' => GeneralStatus::SUBMITTED->value,
         ]);
 
         return response(['message' => 'Task Submitted']);

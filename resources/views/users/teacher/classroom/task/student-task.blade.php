@@ -53,7 +53,7 @@
                 <h1 class="text-lg font-bold text-accent">Attachments</h1>
                 <div class="flex flex-wrap gap-2 w-full">
                     @forelse ($studentTask->attachments as $attachment)
-                        <a href="{{ $attachment->file }}" target="_blank" data-preview="{{ $attachment->file }}"
+                        <a href="{{ $attachment->file_dir }}" target="_blank" data-preview="{{ $attachment->file_dir }}"
                             class=" border rounded-lg">
                             <div class="flex items-center justify-center h-32 w-32 rounded-lg bg-white"
                                 x-data="generateThumbnail">

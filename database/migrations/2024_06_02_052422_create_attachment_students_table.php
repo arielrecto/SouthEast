@@ -15,6 +15,7 @@ return new class extends Migration
         Schema::create('attachment_students', function (Blueprint $table) {
             $table->id();
             $table->longText('file_dir');
+            $table->string('name')->nullable();
             $table->string('type');
             $table->string('extension');
             $table->foreignIdFor(StudentTask::class)->constrained()->onDelete('cascade');

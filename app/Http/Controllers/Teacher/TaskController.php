@@ -58,7 +58,7 @@ class TaskController extends Controller
             'start_date' => 'required',
             'end_date' => 'required',
             'description' => 'required',
-            'max_score' => 'required'
+
         ]);
 
         $attachments = json_decode($request->attachments);
@@ -67,7 +67,7 @@ class TaskController extends Controller
             'name' => $request->name,
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
-            // 'max_score' => $request->max_score,
+            'max_score' => $request->max_score ?? 100,
             'description' => $request->description,
             'score' => 0,
             'classroom_id' => $request->classroom_id
