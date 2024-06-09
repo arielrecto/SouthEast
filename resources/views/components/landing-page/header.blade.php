@@ -16,7 +16,7 @@
                     <a href="{{route('login')}}" class="btn btn-accent text-white btn-sm">Login</a>
 
                 </div>
-                <div class="w-full flex items-end justify-center">
+                {{-- <div class="w-full flex items-end justify-center">
                     <div class="flex items-center gap-5">
                         <a href="#" class="py-2 px-4 hover:bg-accent rounded-lg duration-700 hover:text-primary text-sm tracking-wider">Home</a>
                         <a href="#announcement" class="py-2 px-4 hover:bg-accent rounded-lg duration-700 hover:text-primary text-sm tracking-wider">Announcement</a>
@@ -24,7 +24,7 @@
                         <a href="http://" class="py-2 px-4 hover:bg-accent rounded-lg duration-700 hover:text-primary text-sm tracking-wider">About</a>
                         <a href="http://" class="py-2 px-4 hover:bg-accent rounded-lg duration-700 hover:text-primary text-sm tracking-wider">Contact US</a>
                     </div>
-                </div>
+                </div> --}}
             </div>
 
 

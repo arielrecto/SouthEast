@@ -19,7 +19,9 @@ class ClassroomController extends Controller
     public function index()
     {
 
-        $classrooms = Classroom::latest()->paginate(10);
+        $user = Auth::user();
+
+        $classrooms = Classroom::where('teacher_id', $user->id)->latest()->paginate(10);
 
         return view('users.teacher.classroom.index', compact(['classrooms']));
     }

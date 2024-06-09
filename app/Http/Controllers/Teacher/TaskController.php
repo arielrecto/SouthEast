@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use App\Models\AttachmentTask;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use App\Notifications\TaskNotification;
 use Illuminate\Support\Facades\Storage;
 
 class TaskController extends Controller
@@ -76,10 +78,20 @@ class TaskController extends Controller
         $c_students = json_decode($request->students);
 
         collect($c_students)->map(function ($c_student) use ($task) {
+            $studentId =  $c_student->student->id;
             StudentTask::create([
-                'user_id' => $c_student->student->id,
+                'user_id' => $studentId,
                 'task_id' => $task->id
             ]);
+
+            $user = User::find($studentId);
+
+            $message = [
+                'header' => "Task {$task->name}",
+                'message' => "Duration : {$task->start_date} - {$task->end_date}"
+            ];
+
+            $user->notify(new TaskNotification($message));
         });
 
         if (count($attachments) !== 0) {

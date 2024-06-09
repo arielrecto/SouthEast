@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Teacher;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Models\Announcement;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Notifications\AnnouncementNotification;
 
 class AnnouncementController extends Controller
 {
@@ -40,15 +42,33 @@ class AnnouncementController extends Controller
     {
         $request->validate(['title' => 'required', 'description' => 'required']);
 
+        $classroomId = $request->classroom_id;
 
         Announcement::create([
             'title' => $request->title,
             'description' => $request->description,
-            'classroom_id' => $request->classroom_id
+            'classroom_id' => $classroomId
         ]);
 
+        $students = User::where(function($q) use($classroomId){
+            $q->whereHas('asStudentClassrooms', function($q) use ($classroomId){
+                $q->whereId($classroomId);
+            });
+        })->get();
 
-        return back()->with(['message' => 'announcement posted']);
+
+
+        if(count($students) !== 0){
+            $message = [
+                'header' => "Announcement - {$request->title}",
+                'message' => $request->description
+            ];
+
+            collect($students)->map(function($student) use($message) {
+                $student->notify(new AnnouncementNotification($message));
+            });
+        }
+        return back()->with(['message' => 'announcement posted', 'classroom_id' => $classroomId]);
     }
 
     /**
