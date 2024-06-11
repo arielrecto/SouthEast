@@ -14,7 +14,7 @@
             </div>
 
 
-            @if ($announcement->file)
+            @if ($announcement->file !== null)
                 <a href="{{$announcement->file}}" class="btn btn-sm btn-outline btn-accent">File</a>
                 @else
                 <div class="w-full min-h-32 bg-gray-100 rounded-lg p-2 flex justify-center items-center text-sm">
