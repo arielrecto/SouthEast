@@ -6,6 +6,8 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use App\Enums\UserRoles;
+use App\Models\Strand;
+use App\Models\Subject;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
@@ -28,7 +30,7 @@ class DatabaseSeeder extends Seeder
         $roles = UserRoles::cases();
 
 
-        collect($roles)->map(function($role){
+        collect($roles)->map(function ($role) {
             Role::create([
                 'name' => $role->value
             ]);
@@ -51,10 +53,23 @@ class DatabaseSeeder extends Seeder
         ]);
 
 
+        Strand::create([
+            'name' => 'INFORMATION AND COMMUNICATION TECHNOLOGY',
+            'acronym' => 'ICT',
+            'descriptions' => 'sample description'
+        ]);
+
+
+      Subject::create([
+            'name' => 'ORAL COMMUNICATION',
+            'subject_code' => "ORL-101",
+            'description' => 'SAMPLE DESCRIPTION'
+        ]);
+
+
 
         $admin->assignRole($adminRole);
 
         $teacher->assignRole($teacherRole);
-
     }
 }
