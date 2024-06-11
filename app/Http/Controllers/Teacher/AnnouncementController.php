@@ -64,7 +64,7 @@ class AnnouncementController extends Controller
 
 
             $announcement->update([
-                'file' =>  asset('/storage/' . $dir),
+                'file_dir' =>  asset('/storage/' . $dir),
             ]);
         }
 

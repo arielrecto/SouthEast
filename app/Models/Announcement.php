@@ -14,7 +14,7 @@ class Announcement extends Model
         'title',
         'description',
         'classroom_id',
-        'file'
+        'file_dir'
     ];
 
 
