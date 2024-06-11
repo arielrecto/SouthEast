@@ -84,12 +84,17 @@ class ClassroomController extends Controller
 
         $user = Auth::user();
 
-        $attendances = Classroom::whereId($id)->first()->attendanceStudents()->where(function($q) use($user){
+        $classroom = Classroom::whereId($id)->first();
+
+        $attendances = $classroom->first()->attendanceStudents()->where(function($q) use($user){
             $q->where('user_id', $user->id);
         })->latest()->get();
 
+        $attendance = $classroom->attendances()->latest()->first();
+
         return response([
-            'attendances' => $attendances
+            'attendances' => $attendances,
+            'attendance' => $attendance
         ]);
     }
 }

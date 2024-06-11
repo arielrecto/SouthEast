@@ -35,4 +35,25 @@ class AttendanceController extends Controller
         ], 200);
 
     }
+
+    // public function index(string $id){
+
+    //     $user = Auth::user();
+
+    //      $attendances = Attendance::where(function($q) use($id, $user) {
+    //         $q->whereHas('classroom', function($q) use($id, $user) {
+    //             $q->whereId($id)
+    //             ->whereHas('classroomStudents', function($q) use($user){
+    //                 $q->where('student_id', $user->id);
+    //             });
+    //         });
+    //      })->get();
+
+
+
+    //      return response([
+    //         'attendances' => $attendances,
+    //         'total_attendances' => count($attendances)
+    //      ]);
+    // }
 }

@@ -44,7 +44,7 @@ class AnnouncementController extends Controller
 
         $classroomId = $request->classroom_id;
 
-        Announcement::create([
+       $announcement = Announcement::create([
             'title' => $request->title,
             'description' => $request->description,
             'classroom_id' => $classroomId
@@ -55,6 +55,18 @@ class AnnouncementController extends Controller
                 $q->whereId($classroomId);
             });
         })->get();
+
+
+        if($request->hasFile('attachment')){
+
+            $imageName = 'IMG-' . uniqid() . '.' . $request->attachment->extension();
+            $dir = $request->attachment->storeAs('/event', $imageName, 'public');
+
+
+            $announcement->update([
+                'file' =>  asset('/storage/' . $dir),
+            ]);
+        }
 
 
 
@@ -74,9 +86,14 @@ class AnnouncementController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $id, Request $request)
     {
-        //
+        $announcement = Announcement::find($id);
+
+        $classroom_id = $request->classroom_id;
+
+
+        return view('users.teacher.classroom.announcement.show', compact(['announcement', 'classroom_id']));
     }
 
     /**

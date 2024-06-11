@@ -17,8 +17,11 @@
         {{-- full calendar --}}
         <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
 
+
+
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+
     </head>
     <body class="font-sans antialiased">
         <div class="h-full w-full bg-primary">
@@ -40,6 +43,9 @@
 
 
             <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+
+            <script src="https://unpkg.com/html5-qrcode" defer type="text/javascript"></script>
 
         </div>
     </body>

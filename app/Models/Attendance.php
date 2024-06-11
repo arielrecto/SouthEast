@@ -23,7 +23,7 @@ class Attendance extends Model
         return $this->belongsTo(Classroom::class);
     }
 
-    public function attendanceStudent(){
-        return $this->hasOne(AttendanceStudent::class);
+    public function attendanceStudents(){
+        return $this->hasMany(AttendanceStudent::class);
     }
 }

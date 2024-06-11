@@ -13,7 +13,8 @@ class Announcement extends Model
     protected $fillable = [
         'title',
         'description',
-        'classroom_id'
+        'classroom_id',
+        'file'
     ];
 
 

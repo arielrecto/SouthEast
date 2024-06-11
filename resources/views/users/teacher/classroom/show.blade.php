@@ -9,7 +9,7 @@
             </h1>
         </div>
         <div class="w-full flex justify-end">
-            <form method="POST" action="{{route('teacher.classrooms.destroy', ['classroom' => $classroom->id])}}">
+            <form method="POST" action="{{ route('teacher.classrooms.destroy', ['classroom' => $classroom->id]) }}">
                 @csrf
                 @method('delete')
                 <button class="btn btn-xs btn-error"><i class="fi fi-rr-trash"></i></button>
@@ -27,7 +27,8 @@
         </div>
 
         <div class="grid grid-cols-4 grid-flow-row gap-5 h-32">
-            <a href="{{route('teacher.classrooms.students', ['classroom' => $classroom->id])}}" class="card-generic bg-white flex flex-col gap-2 justify-between shadow-none border-accent border">
+            <a href="{{ route('teacher.classrooms.students', ['classroom' => $classroom->id]) }}"
+                class="card-generic bg-white flex flex-col gap-2 justify-between shadow-none border-accent border">
                 <h1 class="font-bold flex items-center gap-2">
                     <span class="mt-1">
                         <i class="fi fi-rr-student"></i>
@@ -37,45 +38,48 @@
                     </span>
                 </h1>
                 <p class="flex text-3xl font-bold text-accent text-center">
-                    {{count($classroom->classroomStudents)}}
+                    {{ count($classroom->classroomStudents) }}
                 </p>
             </a>
-            <a href="{{route('teacher.announcements.index', ['classroom_id' => $classroom->id])}}" class="card-generic bg-white flex flex-col gap-2 justify-between shadow-none border-accent border">
+            <a href="{{ route('teacher.announcements.index', ['classroom_id' => $classroom->id]) }}"
+                class="card-generic bg-white flex flex-col gap-2 justify-between shadow-none border-accent border">
 
                 <h1 class="font-bold flex items-center gap-2">
                     <span class="mt-1">
                         <i class="fi fi-rr-megaphone"></i>
                     </span>
                     <span>
-                        Announcements
+                        Announcements / lesson
                     </span>
                 </h1>
                 <p class="flex text-3xl font-bold text-accent text-center">
-                    {{count($classroom->announcements)}}
+                    {{ count($classroom->announcements) }}
                 </p>
             </a>
-            <a href="{{route('teacher.tasks.index', ['classroom_id' => $classroom->id])}}" class="card-generic bg-white flex flex-col gap-2 justify-between shadow-none border-accent border">
+            <a href="{{ route('teacher.tasks.index', ['classroom_id' => $classroom->id]) }}"
+                class="card-generic bg-white flex flex-col gap-2 justify-between shadow-none border-accent border">
 
                 <h1 class="font-bold flex items-center gap-2">
                     <span class="mt-1">
                         <i class="fi fi-rr-list-check"></i>
                     </span>
                     <span>
-                       Tasks
+                        Tasks
                     </span>
                 </h1>
                 <p class="flex text-3xl font-bold text-accent text-center">
-                    {{count($classroom->tasks)}}
+                    {{ count($classroom->tasks) }}
                 </p>
             </a>
-            <a href="{{route('teacher.grades.index', ['classroom_id' => $classroom->id])}}" class="card-generic bg-white flex flex-col gap-2 justify-between shadow-none border-accent border">
+            <a href="{{ route('teacher.grades.index', ['classroom_id' => $classroom->id]) }}"
+                class="card-generic bg-white flex flex-col gap-2 justify-between shadow-none border-accent border">
 
                 <h1 class="font-bold flex items-center gap-2">
                     <span class="mt-1">
                         <i class="fi fi-rr-test"></i>
                     </span>
                     <span>
-                       Grades
+                        Grades
                     </span>
                 </h1>
                 {{-- <p class="flex text-3xl font-bold text-accent text-center">
@@ -92,18 +96,24 @@
                     <h1 class="text-lg text-accent font-bold">
                         Attendance
                     </h1>
-                    <a href="{{ route('teacher.classrooms.attendances', ['classroom' => $classroom->id]) }}"
-                        class="btn btn-xs btn-accent">
-                        QR Code
-                    </a>
+                    <div class="flex gap-2 items-center">
+                        <a href="{{ route('teacher.classrooms.attendances', ['classroom' => $classroom->id]) }}"
+                            class="btn btn-xs btn-accent">
+                            QR Code
+                        </a>
+
+                    </div>
+
                 </div>
                 @if ($attendance)
-
-
                     <div class="w-full h-full flex justify-center items-center">
                         <div class="flex flex-col gap-2">
                             {!! QrCode::size(300)->generate($attendance->attendance_code) !!}
                             <p class="text-gray text-xs text-center">{{ $attendance->attendance_code }}</p>
+                            <a href="{{ route('teacher.classrooms.attendances.scanner', ['attendance' => $attendance->id, 'classroom_id' => $classroom->id]) }}"
+                                class="btn btn-xs btn-accent">
+                                <span><i class="fi fi-rr-qr-scan"></i></span>
+                            </a>
                         </div>
 
                     </div>
@@ -131,13 +141,12 @@
                             </p>
                         </div>
                     </div>
-
                 @else
-                <div class="h-full w-full flex justify-center items-center bg-gray-100 rounded-lg">
-                    <h1>
-                        No Attendance QR Code
-                    </h1>
-                </div>
+                    <div class="h-full w-full flex justify-center items-center bg-gray-100 rounded-lg">
+                        <h1>
+                            No Attendance QR Code
+                        </h1>
+                    </div>
                 @endif
             </div>
             <div class="w-1/2 h-auto flex flex-col gap-2" x-data="calendarInit">
@@ -169,13 +178,16 @@
                         <tr>
                             <th></th>
                             <td>{{ $classroomStudent->student->name }}</td>
-                            <td>{{ date('F d, Y H:s A', strtotime($classroomStudent->created_at))}}</td>
+                            <td>{{ date('F d, Y H:s A', strtotime($classroomStudent->created_at)) }}</td>
                             <td class="flex items-center gap-2">
-                                <a href="{{route('teacher.student.show', ['student' => $classroomStudent->student->id, 'classroom_id' => $classroom->id])}}" class="btn btn-xs btn-accent">
+                                <a href="{{ route('teacher.student.show', ['student' => $classroomStudent->student->id, 'classroom_id' => $classroom->id]) }}"
+                                    class="btn btn-xs btn-accent">
                                     <i class="fi fi-rr-eye"></i>
                                 </a>
 
-                                <form action="{{route('teacher.classrooms.student.remove', ['classroom_student' => $classroomStudent->id])}}" method="post">
+                                <form
+                                    action="{{ route('teacher.classrooms.student.remove', ['classroom_student' => $classroomStudent->id]) }}"
+                                    method="post">
                                     @csrf
                                     @method('delete')
                                     <button class="btn btn-xs btn-error ">

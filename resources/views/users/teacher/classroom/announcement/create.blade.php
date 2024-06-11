@@ -54,6 +54,10 @@
                     <p class="text-xs text-error">{{ $errors->first('description') }}</p>
                 @endif
             </div>
+            <div class="flex flex-col gap-2">
+                <label for="" class="input-generic-label">Description</label>
+                <input type="file" name="attachment" class="file-input file-input-accent">
+            </div>
 
             <input type="hidden" name="classroom_id" value="{{$classroom_id}}">
 

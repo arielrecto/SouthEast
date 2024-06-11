@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Teacher;
 
-use App\Http\Controllers\Controller;
-use App\Models\Attendance;
 use App\Models\Classroom;
+use App\Models\Attendance;
 use Illuminate\Http\Request;
+use App\Models\AttendanceStudent;
+use App\Http\Controllers\Controller;
 
 class AttendanceController extends Controller
 {
@@ -48,7 +49,6 @@ class AttendanceController extends Controller
 
 
         return to_route('teacher.classrooms.show', ['classroom' => $request->classroom_id])->with(['message' => 'Attendance QR Generated']);
-
     }
 
     /**
@@ -81,5 +81,43 @@ class AttendanceController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+    public function scanner(string $id, Request $request)
+    {
+        $attendance = Attendance::find($id);
+
+        $classroomId = $request->classroom_id;
+
+        $students = $attendance->attendanceStudents()->get()->toJson();
+
+
+        return view('users.teacher.classroom.attendance.scanner', compact(['attendance', 'classroomId', 'students']));
+    }
+
+    public function studentAttendance(Request $request){
+
+        $attendance = Attendance::where('attendance_code', $request->attendanceCode)->first();
+
+
+        if(!$attendance){
+            return response([
+                'error' => [
+                    'attendance_code' => "Attendance Code Doesn\'t Exist"
+                ]
+            ], 422);
+        }
+
+
+       $student = AttendanceStudent::create([
+            'attendance_id' => $attendance->id,
+            'classroom_id' => $request->classroom,
+            'user_id' => $request->student
+        ]);
+
+
+
+        return response([
+            'student' => $student
+        ]);
     }
 }

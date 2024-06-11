@@ -2,6 +2,7 @@
 //  import "./bootstrap";
 
 import Alpine from "alpinejs";
+import axios from "axios";
 
 window.Alpine = Alpine;
 
@@ -212,6 +213,71 @@ Alpine.data("generateThumbnail", () => ({
         return (
             this.thumbnails[extension] || "https://example.com/default_icon.svg"
         );
+    },
+}));
+
+Alpine.data("QrScanner", () => ({
+    result: null,
+    scanner: null,
+    height: 250,
+    width: 250,
+    students: [],
+    init() {
+        const reader = this.$refs.reader;
+
+        if (typeof Html5QrcodeScanner === "undefined") {
+            setTimeout(() => this.init(), 100);
+            return;
+        }
+
+        this.scanner = new Html5QrcodeScanner(reader.id, {
+            fps: 10,
+            qrbox: {
+                width: this.width,
+                height: this.height,
+            },
+        });
+
+        this.scanner.render(this.onSuccess.bind(this), this.onError);
+
+        this.$watch("result", () => {
+            const data = this.result.split("-");
+
+            console.log(data);
+
+            const formData = new FormData();
+            formData.append("student", data[1]);
+            formData.append("attendanceCode", data[0]);
+            formData.append("classroom", data[2]);
+
+            this.submitAttendance(formData);
+        });
+    },
+    studentInit(data) {
+        this.students = [...data];
+    },
+    onSuccess(decodedText, decodedResult) {
+        if (this.result !== null && this.result === decodedText) return;
+
+        this.result = decodedText;
+    },
+
+    async submitAttendance(payload) {
+        try {
+            console.log(payload, "hile");
+            const response = await axios.post(
+                "/teacher/classrooms/attendances/student",
+                payload
+            );
+
+            console.log("hi");
+
+            this.students = [...this.students, response.student];
+
+            alert("attendance successs");
+        } catch (error) {
+            console.log(error);
+        }
     },
 }));
 

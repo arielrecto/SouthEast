@@ -30,7 +30,7 @@
                             <td>{{ $announcement->title }}</td>
                             <td>{{ date('F d, Y H:s A', strtotime($announcement->created_at))}}</td>
                             <td class="flex items-center gap-2">
-                                <a href="#" class="btn btn-xs btn-accent">
+                                <a href="{{route('teacher.announcements.show', ['announcement' => $announcement->id, 'classroom_id' => $classroom_id])}}" class="btn btn-xs btn-accent">
                                     <i class="fi fi-rr-eye"></i>
                                 </a>
 
