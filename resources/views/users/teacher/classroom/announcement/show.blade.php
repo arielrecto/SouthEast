@@ -13,7 +13,6 @@
                 {{$announcement->description}}
             </div>
 
-            @dd($announcement)
 
             @if ($announcement->file_dir)
                 <a href="{{$announcement->file}}" target="_blank" class="btn btn-sm btn-outline btn-accent">File</a>
