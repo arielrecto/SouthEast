@@ -15,8 +15,8 @@
 
             @dd($announcement)
 
-            @if ($announcement->file !== null)
-                <a href="{{$announcement->file}}" class="btn btn-sm btn-outline btn-accent">File</a>
+            @if ($announcement->file_dir)
+                <a href="{{$announcement->file}}" target="_blank" class="btn btn-sm btn-outline btn-accent">File</a>
                 @else
                 <div class="w-full min-h-32 bg-gray-100 rounded-lg p-2 flex justify-center items-center text-sm">
                    <h1>No Attachment</h1>
