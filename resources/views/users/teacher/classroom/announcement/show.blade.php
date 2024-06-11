@@ -13,6 +13,7 @@
                 {{$announcement->description}}
             </div>
 
+            @dd($announcement)
 
             @if ($announcement->file !== null)
                 <a href="{{$announcement->file}}" class="btn btn-sm btn-outline btn-accent">File</a>
